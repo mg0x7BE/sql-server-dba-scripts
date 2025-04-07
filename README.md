@@ -1,24 +1,26 @@
 
-![GitHub repo size](https://img.shields.io/github/repo-size/MaxGripe/repository-template)
-![GitHub License](https://img.shields.io/github/license/MaxGripe/repository-template)
-![GitHub Created At](https://img.shields.io/github/created-at/MaxGripe/repository-template)
-![GitHub forks](https://img.shields.io/github/forks/MaxGripe/repository-template)
-![GitHub Repo stars](https://img.shields.io/github/stars/MaxGripe/repository-template)
+![GitHub repo size](https://img.shields.io/github/repo-size/MaxGripe/sql-server-dba-scripts)
+![GitHub License](https://img.shields.io/github/license/MaxGripe/sql-server-dba-scripts)
+![GitHub Created At](https://img.shields.io/github/created-at/MaxGripe/sql-server-dba-scripts)
+![GitHub forks](https://img.shields.io/github/forks/MaxGripe/sql-server-dba-scripts)
+![GitHub Repo stars](https://img.shields.io/github/stars/MaxGripe/sql-server-dba-scripts)
 
 
-# Template Repository
+# SQL Server DBA scripts
 
-This repository serves as a template for starting new projects.
-
-## Features
-
-- Easy setup
-- Customizable configurations
-- Some popular badges already in place
+Collection of SQL Server administration scripts.
 
 ## Getting started
 
-To use this template, select it from the **Repository template** dropdown when creating a new repository.
+The file names correspond to specific topics. Just find the appropriate .sql file, and the scripts related to that topic are inside :)
+
+## About this repository
+
+There are many of my scripts here, but also a lot of them are things I’ve found on the Internet in various places and from different sources. Unfortunately, I can't provide the exact authors of each script. These are things that have accumulated over the years. This repository helps me keep everything in one place and access the code when needed. In no way do I claim authorship of these scripts, although I am partially the author of some of them.
+
+If someone wants to use these scripts, first and foremost, please do so at your own risk, and secondly, keep in mind that a given script may come from an external source. Feel free to use them, but if anyone believes they should be credited as the author in a particular place, please let me know or submit a pull request.
+
+Thanks for your understanding!
 
 ## License
 
