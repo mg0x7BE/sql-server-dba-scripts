@@ -17,11 +17,10 @@ exec sp_browsereplcmds @xact_seqno_start = '0x0003BB0E000001DF000600000000',
 
 /**********************************************************************************************/
 --	To prevent issues with replication such as 
---	Cannot insert explicit value for identity column in table <...........> when IDENTITY_INSERT is set to OFF
---	This is typical where the [H]ODS database was created off a OLTP database that did not have the publication 
---	created on it when the copy was made. To ensure the articles / tables in the [H]ODS databases have their 
---	identity columns flagged correctly run the following on all the ODS databases where relevant including 
---	the federated ODS databases such as FARE, SCHEDULE , EQUIPMENT and PDS ODS
+--	Cannot insert explicit value for identity column in table <...> when IDENTITY_INSERT is set to OFF
+--	This is typical where the database was created off a database that did not have the publication
+--	created on it when the copy was made. To ensure the articles / tables in the new databases have their
+--	identity columns flagged correctly run the following:
 
 EXEC sp_msforeachtable @command1 = '
 declare @int int
