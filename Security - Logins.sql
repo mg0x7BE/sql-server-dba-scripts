@@ -40,8 +40,8 @@ DROP TABLE #tempww
 EXEC master..xp_ReadErrorLog 0, 1, 'Failed', 'login', NULL, NULL, 'desc' 
 
 -- check logins
-select * from master.dbo.syslogins where name = 'VFODSUSER'
-select * from master.sys.server_principals where name = 'VFODSUSER'
+select * from master.dbo.syslogins where name = 'SOME_SUSER'
+select * from master.sys.server_principals where name = 'SOME_USER'
 
 -- fixing orphaned users
 EXEC sp_change_users_login 'Report'
