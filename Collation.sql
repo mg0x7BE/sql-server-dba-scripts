@@ -56,6 +56,26 @@ FROM #CollationStats
 ORDER BY 1,2,3 desc,5
 DROP TABLE #CollationStats;
 
+/**********************************************************************************************/
+-- Column-level collation details
+use my_database;
+
+SELECT
+    @@SERVERNAME AS ServerName,
+    db_name() as DatabaseName,
+    s.name AS SchemaName,
+    t.name AS TableName,
+    c.name AS ColumnName,
+    ty.name AS DataType,
+    c.collation_name AS Collation
+FROM sys.tables t
+    INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+    INNER JOIN sys.columns c ON t.object_id = c.object_id
+    INNER JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+WHERE c.collation_name = 'Latin1_General_BIN'
+  AND t.type = 'U' -- User Table
+  AND ty.is_user_defined <> 1
+ORDER BY 1,2,3,4,5
 
 /**********************************************************************************************/
 -- Change database collation
