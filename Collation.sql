@@ -40,7 +40,7 @@ SELECT @SQL = @SQL +
               'AND c.collation_name IS NOT NULL ' +
               'GROUP BY c.collation_name; '
 FROM sys.databases
-WHERE state = 0 and name not in ('tempdb','msdb');
+WHERE state = 0;
 
 EXEC sp_executesql @SQL;
 
