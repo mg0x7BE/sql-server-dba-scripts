@@ -20,7 +20,7 @@ SELECT
             0 AS CollationCount,
             'Database' AS SourceType
 FROM sys.databases d
-WHERE d.name not in ('tempdb','msdb')
+WHERE d.name not in ('tempdb','msdb','ssisdb')
 GROUP BY d.name, d.collation_name;
 
 DECLARE @SQL NVARCHAR(MAX) = '';
@@ -40,7 +40,7 @@ SELECT @SQL = @SQL +
               'AND c.collation_name IS NOT NULL ' +
               'GROUP BY c.collation_name; '
 FROM sys.databases
-WHERE state = 0 AND name not in ('tempdb','msdb');
+WHERE state = 0 AND name not in ('tempdb','msdb','ssisdb');
 
 EXEC sp_executesql @SQL;
 
