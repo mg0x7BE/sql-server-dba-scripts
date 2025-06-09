@@ -14,9 +14,9 @@ CREATE TABLE #CollationStats (
 );
 INSERT INTO #CollationStats (ServerName, DatabaseName, Collation, CollationCount, SourceType)
 SELECT
-            @@SERVERNAME AS ServerName,
-            d.name AS DatabaseName,
-            d.collation_name AS Collation,
+    @@SERVERNAME AS ServerName,
+    d.name AS DatabaseName,
+    d.collation_name AS Collation,
             0 AS CollationCount,
             'Database' AS SourceType
 FROM sys.databases d
@@ -36,9 +36,7 @@ SELECT @SQL = @SQL +
               'FROM sys.tables t ' +
               'INNER JOIN sys.schemas s ON t.schema_id = s.schema_id ' +
               'INNER JOIN sys.columns c ON t.object_id = c.object_id ' +
-              'INNER JOIN sys.types ty ON c.user_type_id = ty.user_type_id ' +
               'WHERE t.type = ''U'' ' +
-              'AND ty.is_user_defined <> 1 ' +
               'AND c.collation_name IS NOT NULL ' +
               'GROUP BY c.collation_name; '
 FROM sys.databases
