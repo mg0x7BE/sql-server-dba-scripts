@@ -3,7 +3,7 @@
 -- Check database-level and column-level collation for the entire instance
 
 IF OBJECT_ID('tempdb..#CollationStats') IS NOT NULL
-    DROP TABLE #CollationStats;
+DROP TABLE #CollationStats;
 
 CREATE TABLE #CollationStats (
                                  ServerName NVARCHAR(128),
