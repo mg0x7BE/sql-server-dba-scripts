@@ -1,3 +1,38 @@
+/**********************************************************************************************/
+-- Returns tables and user-defined table types with their column collations
+
+SELECT
+    'Table' AS ObjectType,
+    TABLE_SCHEMA AS SchemaName,
+    TABLE_NAME AS ObjectName,
+    COLUMN_NAME AS ColumnName,
+    DATA_TYPE AS DataType,
+    COLLATION_NAME AS Collation
+FROM
+    INFORMATION_SCHEMA.COLUMNS
+WHERE
+    COLLATION_NAME IS NOT NULL
+
+UNION ALL
+
+SELECT
+    'User-Defined Table Type' AS ObjectType,
+    SCHEMA_NAME(tt.schema_id) AS SchemaName,
+    tt.name AS ObjectName,
+    c.name AS ColumnName,
+    TYPE_NAME(c.system_type_id) AS DataType,
+    c.collation_name AS Collation
+FROM
+    sys.table_types AS tt
+    INNER JOIN
+    sys.columns AS c ON c.object_id = tt.type_table_object_id
+WHERE
+    c.collation_name IS NOT NULL
+ORDER BY
+    ObjectType,
+    SchemaName,
+    ObjectName,
+    ColumnName;
 
 /**********************************************************************************************/
 -- Check database-level and column-level collation for the entire instance
