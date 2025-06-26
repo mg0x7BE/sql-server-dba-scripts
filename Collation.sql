@@ -62,6 +62,7 @@ DECLARE @SQL NVARCHAR(MAX) = '';
 SELECT @SQL = @SQL +
               'USE [' + name + ']; ' +
               'INSERT INTO #CollationStats (ServerName, DatabaseName, Collation, CollationCount, SourceType) ' +
+    -- Column collations
               'SELECT ' +
               '@@SERVERNAME AS ServerName, ' +
               '''' + name + ''' AS DatabaseName, ' +
@@ -73,6 +74,18 @@ SELECT @SQL = @SQL +
               'INNER JOIN sys.columns c ON t.object_id = c.object_id ' +
               'WHERE t.type = ''U'' ' +
               'AND c.collation_name IS NOT NULL ' +
+              'GROUP BY c.collation_name ' +
+    -- Table type collations
+              'UNION ALL ' +
+              'SELECT ' +
+              '@@SERVERNAME AS ServerName, ' +
+              '''' + name + ''' AS DatabaseName, ' +
+              'c.collation_name AS Collation, ' +
+              'COUNT(*) AS CollationCount, ' +
+              '''Table Types'' AS SourceType ' +
+              'FROM sys.table_types tt ' +
+              'INNER JOIN sys.columns c ON c.object_id = tt.type_table_object_id ' +
+              'WHERE c.collation_name IS NOT NULL ' +
               'GROUP BY c.collation_name; '
 FROM sys.databases
 WHERE state = 0 AND name not in ('tempdb','msdb','ssisdb');
@@ -86,7 +99,7 @@ SELECT
     CASE WHEN (SourceType = 'Database') THEN 'Database' ELSE CONVERT(nvarchar(255), CollationCount) END as CollationCount,
     Collation
 FROM #CollationStats
-ORDER BY 1,2,3 desc,5
+ORDER BY 1,2,3,5
 DROP TABLE #CollationStats;
 
 /**********************************************************************************************/
