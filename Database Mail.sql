@@ -27,11 +27,11 @@ GO
 
 /**********************************************************************************************/
 -- track the delivery status of an individual messages
-dbo.sysmail_allitems
-dbo.sysmail_sentitems
-dbo.sysmail_unsentitems
-dbo.sysmail_faileditems
-dbo.sysmail_mailattachments
+SELECT * FROM dbo.sysmail_allitems
+SELECT * FROM dbo.sysmail_sentitems
+SELECT * FROM dbo.sysmail_unsentitems
+SELECT * FROM dbo.sysmail_faileditems
+SELECT * FROM dbo.sysmail_mailattachments
 
 /**********************************************************************************************/
 -- Query the database mail event log

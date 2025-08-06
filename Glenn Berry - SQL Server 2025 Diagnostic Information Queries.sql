@@ -479,7 +479,7 @@ ORDER BY ag.name, ar.replica_server_name, adc.[database_name] OPTION (RECOMPILE)
 
 -- You will see no results if your instance is not using AlwaysOn AGs
 
--- SQL Server 2016 – It Just Runs Faster: Always On Availability Groups Turbocharged
+-- SQL Server 2016 ï¿½ It Just Runs Faster: Always On Availability Groups Turbocharged
 -- https://bit.ly/2dn1H6r
 
 
@@ -984,7 +984,7 @@ ORDER BY index_advantage DESC OPTION (RECOMPILE);
 -- Also look at avg_user_impact and avg_total_user_cost to help determine importance
 -- SQL Server is overly eager to add included columns, so beware
 -- Do not just blindly add indexes that show up from this query!!!
--- Håkan Winther has given me some great suggestions for this query
+-- Hï¿½kan Winther has given me some great suggestions for this query
 
 -- SQL Server Index Design Guide
 -- https://bit.ly/2qtZr4N
@@ -1367,7 +1367,7 @@ AND counter_name = N'Page life expectancy' OPTION (RECOMPILE);
 -- Higher PLE is better. Watch the trend over time, not the absolute value
 -- This will only return one row for non-NUMA systems
 
--- Page Life Expectancy isn’t what you think…
+-- Page Life Expectancy isnï¿½t what you thinkï¿½
 -- https://bit.ly/2EgynLa
 
 
@@ -1890,7 +1890,7 @@ ORDER BY index_advantage DESC OPTION (RECOMPILE);
 -- Look at index advantage, last user seek time, number of user seeks to help determine source and importance
 -- SQL Server is overly eager to add included columns, so beware
 -- Do not just blindly add indexes that show up from this query!!!
--- Håkan Winther has given me some great suggestions for this query
+-- Hï¿½kan Winther has given me some great suggestions for this query
 
 
 -- Find missing index warnings for cached plans in the current database  (Query 73) (Missing Index Warnings)
