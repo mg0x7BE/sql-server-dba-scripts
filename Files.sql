@@ -11,6 +11,31 @@ select * from [AdventureWorks2012].sys.database_files
     DBCC SQLPERF(LOGSPACE);
 
 /**********************************************************************************************/
+-- check file growth settings
+SELECT
+    DB_NAME(database_id) AS database_name,
+    type_desc,
+    CASE
+        WHEN is_percent_growth = 1 THEN CAST(growth AS VARCHAR(10)) + '%'
+        ELSE CAST(CAST(growth AS BIGINT) * 8 / 1024 AS VARCHAR(20)) + ' MB'
+        END AS growth_mb,
+    CASE
+        WHEN max_size = -1 THEN 'Unlimited'
+        WHEN max_size = 0 THEN 'No growth'
+        WHEN type_desc = 'LOG' THEN CAST(CAST(max_size AS BIGINT) * 8 / 1024 / 1024 / 1024 AS VARCHAR(20)) + ' TB'
+        ELSE CAST(CAST(max_size AS BIGINT) * 8 / 1024 / 1024 AS VARCHAR(20)) + ' GB'
+        END AS max_size,
+    is_percent_growth
+FROM sys.master_files
+ORDER BY
+    CASE
+        WHEN database_id IN (1,2,3,4) THEN 0
+        ELSE 1
+        END,
+    DB_NAME(database_id),
+    type_desc
+
+/**********************************************************************************************/
 -- find biggest DBs on specific drive
 select db_name(database_id) as [DB_Name], ROUND(SUM(mf.size) * 8 / 1024, 0) Size_MBs
 from sys.master_files mf
