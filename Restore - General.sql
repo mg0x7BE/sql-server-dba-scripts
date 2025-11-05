@@ -44,6 +44,30 @@ ORDER BY
 GO
 
 /**********************************************************************************************/
+-- Check for full database backups from the last 24 hours
+SELECT
+	d.name,
+	bs.backup_finish_date,
+	mf.physical_device_name
+FROM
+	sys.databases d
+LEFT JOIN 
+	msdb.dbo.backupset bs 
+ON
+	d.name = bs.database_name 
+AND
+	bs.backup_finish_date >= DATEADD(HOUR, -24, GETDATE())
+AND
+	bs.type = 'D'
+LEFT JOIN
+	msdb.dbo.backupmediafamily AS mf
+ON
+	bs.media_set_id = mf.media_set_id
+WHERE
+	d.name <> 'tempdb'
+ORDER BY 1,2
+
+/**********************************************************************************************/
 -- when was the last backup?
 
 SELECT d.name, MAX(b.backup_finish_date) AS last_backup_finish_date
