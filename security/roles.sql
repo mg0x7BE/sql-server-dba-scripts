@@ -115,16 +115,16 @@ GO
 -- Uncomment to run.
 -- USE [YourDatabase];
 -- GO
--- CREATE ROLE MarketingReaders AUTHORIZATION dbo;
+-- CREATE ROLE YourRole AUTHORIZATION dbo;
 -- GO
--- GRANT SELECT ON SCHEMA::Marketing TO MarketingReaders;
+-- GRANT SELECT ON SCHEMA::YourSchema TO YourRole;
 -- GO
--- ALTER ROLE MarketingReaders ADD MEMBER [YourUser];
+-- ALTER ROLE YourRole ADD MEMBER [YourUser];
 -- GO
 
 -- DESTRUCTIVE: drops a user-defined database role. Remove all members first.
 -- Uncomment to run.
--- DROP ROLE MarketingReaders;
+-- DROP ROLE YourRole;
 -- GO
 
 -- Generate a CREATE ROLE + GRANT script for an existing role (object-level grants).
@@ -150,11 +150,11 @@ GO
 -- connection cannot revert until it closes. Kept as reference only.
 -- USE [YourDatabase];
 -- GO
--- CREATE APPLICATION ROLE MarketingApp WITH PASSWORD = 'UseAStrongSecretHere';
+-- CREATE APPLICATION ROLE YourAppRole WITH PASSWORD = 'UseAStrongSecretHere';
 -- GO
--- GRANT SELECT ON SCHEMA::Marketing TO MarketingApp;
+-- GRANT SELECT ON SCHEMA::YourSchema TO YourAppRole;
 -- GO
--- EXEC sys.sp_setapprole 'MarketingApp', 'UseAStrongSecretHere';
+-- EXEC sys.sp_setapprole 'YourAppRole', 'UseAStrongSecretHere';
 -- GO
 
 -- Read-only server role recipe. CONNECT ANY DATABASE lets the role into every

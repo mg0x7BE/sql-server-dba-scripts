@@ -10,7 +10,7 @@ GO
 -- Run first to see what you already hold before granting anything.
 SELECT * FROM sys.fn_my_permissions(NULL, 'SERVER');
 SELECT * FROM sys.fn_my_permissions(NULL, 'DATABASE');
-SELECT * FROM sys.fn_my_permissions('Marketing.Salesperson', 'OBJECT')
+SELECT * FROM sys.fn_my_permissions('dbo.YourTable', 'OBJECT')
 ORDER BY subentity_name, permission_name;
 GO
 
@@ -18,7 +18,7 @@ GO
 -- REVERT switches the context back. Set the login name before running.
 EXECUTE AS LOGIN = 'DOMAIN\login';
     SELECT * FROM sys.fn_my_permissions(NULL, 'DATABASE');
-    SELECT * FROM sys.fn_my_permissions('Marketing.Salesperson', 'OBJECT')
+    SELECT * FROM sys.fn_my_permissions('dbo.YourTable', 'OBJECT')
     ORDER BY subentity_name, permission_name;
 REVERT;
 GO
@@ -41,7 +41,7 @@ GO
 -- Script the GRANT statements held by one principal, across all permission classes.
 -- Set the principal name; copy the output to recreate grants on another database.
 -- Resolves DATABASE/SCHEMA/OBJECT/XML_SCHEMA_COLLECTION targets so none render blank.
-DECLARE @PrincipalName sysname = N'CRMReaderRole';
+DECLARE @PrincipalName sysname = N'YourRole';
 
 SELECT
     perm.state_desc + N' ' + perm.permission_name
@@ -68,31 +68,31 @@ ORDER BY perm.class_desc, perm.permission_name;
 GO
 
 -- Object-level GRANT. Two-part name resolves through OBJECT:: implicitly.
-GRANT SELECT ON OBJECT::Marketing.Salesperson TO HRApp;
+GRANT SELECT ON OBJECT::dbo.YourTable TO [YourRole];
 GO
 
 -- Column-level GRANT. Restricts SELECT to the listed columns only.
-GRANT SELECT ON Marketing.Salesperson (SalespersonID, EmailAlias) TO James;
+GRANT SELECT ON dbo.YourTable (Column1, Column2) TO [YourUser];
 GO
 
 -- WITH GRANT OPTION lets the grantee pass the permission on to others.
 -- Avoid unless you specifically need delegated granting.
-GRANT UPDATE ON Marketing.Salesperson TO James WITH GRANT OPTION;
+GRANT UPDATE ON dbo.YourTable TO [YourUser] WITH GRANT OPTION;
 GO
 
 -- REVOKE removes a previously granted/denied permission.
 -- CASCADE also revokes any permissions the grantee passed on via WITH GRANT OPTION.
-REVOKE UPDATE ON Marketing.Salesperson FROM James CASCADE;
+REVOKE UPDATE ON dbo.YourTable FROM [YourUser] CASCADE;
 GO
 
 -- Schema-level grants apply to every object in the schema, current and future.
 -- EXECUTE covers procedures/functions; SELECT covers tables/views.
-GRANT EXECUTE ON SCHEMA::Marketing TO Mod11User;
-GRANT SELECT  ON SCHEMA::DirectMarketing TO Mod11User;
+GRANT EXECUTE ON SCHEMA::YourSchema TO [YourUser];
+GRANT SELECT  ON SCHEMA::YourSchema TO [YourUser];
 GO
 
 -- DENY blocks access even if a GRANT exists elsewhere (e.g. via role membership).
-DENY SELECT ON SCHEMA::DirectMarketing TO [DOMAIN\login];
+DENY SELECT ON SCHEMA::YourSchema TO [DOMAIN\login];
 GO
 
 -- Optional: log permission-denied errors (msg 229) to the SQL Server error log.
