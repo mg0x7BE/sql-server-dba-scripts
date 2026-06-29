@@ -60,7 +60,7 @@ CROSS APPLY sys.dm_db_page_info(prc.db_id, prc.file_id, prc.page_id, 'DETAILED')
 WHERE r.page_resource IS NOT NULL;
 GO
 
--- Resolve database_id <-> name when you only have the number in a resource string.
+-- Map database_id to name when you only have the number in a resource string.
 SELECT database_id, name FROM sys.databases ORDER BY database_id;
 SELECT DB_ID(N'YourDatabase') AS database_id, DB_NAME(DB_ID(N'YourDatabase')) AS database_name;
 GO

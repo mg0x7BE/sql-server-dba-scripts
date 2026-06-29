@@ -174,7 +174,7 @@ REVERT;
 GO
 
 -- Kerberos double-hop / linked-server delegation prerequisites.
--- For credentials to flow client -> SQL A -> SQL B (linked server, no SQL login):
+-- For credentials to flow from client to SQL A to SQL B (linked server, no SQL login):
 --   1. Register an SPN per instance: MSSQLSvc/host.fqdn:port under each service account.
 --   2. Trust the SQL A service account for delegation (constrained, to SQL B's SPN).
 --   3. Leave "Account is sensitive and cannot be delegated" OFF for the user being impersonated.

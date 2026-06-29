@@ -29,7 +29,7 @@ ORDER BY m.message_id;
 EXEC msdb.dbo.sp_altermessage 229, 'WITH_LOG', 'true';
 
 -- Shred the security-error ring buffer for login-failure detail.
--- Error_Code is hex; resolve the OS code with: net helpmsg <decimal> (e.g. 0x139F -> net helpmsg 5023).
+-- Error_Code is hex; resolve the OS code with net helpmsg <decimal> (0x139F is 5023, so net helpmsg 5023).
 SELECT
     DATEADD(SECOND, (rbf.[timestamp] - si.ms_ticks) / 1000, GETDATE()) AS Notification_Time,
     r.value('(//SPID)[1]', 'bigint')                      AS SPID,

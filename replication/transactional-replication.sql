@@ -74,7 +74,7 @@ EXEC dbo.sp_helptracertokens
        @publication = N'publication_name',
        @publisher_db = N'publisher_database';
 
--- Per-token latency breakdown (publisher -> distributor -> subscriber), documented.
+-- Per-token latency breakdown across publisher, distributor, and subscriber, documented.
 -- NULL subscriber/overall latency means the token has not arrived yet, which also
 -- makes Replication Monitor report a lag.
 EXEC dbo.sp_helptracertokenhistory
